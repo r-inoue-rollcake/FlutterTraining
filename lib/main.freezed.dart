@@ -157,3 +157,193 @@ abstract class _RepositoryProf implements RepositoryProf {
   _$$_RepositoryProfCopyWith<_$_RepositoryProf> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+Items _$ItemsFromJson(Map<String, dynamic> json) {
+  return _Items.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Items {
+  String get name => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+  String get url => throw _privateConstructorUsedError;
+  int get stargazers_count => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ItemsCopyWith<Items> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ItemsCopyWith<$Res> {
+  factory $ItemsCopyWith(Items value, $Res Function(Items) then) =
+      _$ItemsCopyWithImpl<$Res, Items>;
+  @useResult
+  $Res call(
+      {String name, String? description, String url, int stargazers_count});
+}
+
+/// @nodoc
+class _$ItemsCopyWithImpl<$Res, $Val extends Items>
+    implements $ItemsCopyWith<$Res> {
+  _$ItemsCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? description = freezed,
+    Object? url = null,
+    Object? stargazers_count = null,
+  }) {
+    return _then(_value.copyWith(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      url: null == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
+      stargazers_count: null == stargazers_count
+          ? _value.stargazers_count
+          : stargazers_count // ignore: cast_nullable_to_non_nullable
+              as int,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_ItemsCopyWith<$Res> implements $ItemsCopyWith<$Res> {
+  factory _$$_ItemsCopyWith(_$_Items value, $Res Function(_$_Items) then) =
+      __$$_ItemsCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String name, String? description, String url, int stargazers_count});
+}
+
+/// @nodoc
+class __$$_ItemsCopyWithImpl<$Res> extends _$ItemsCopyWithImpl<$Res, _$_Items>
+    implements _$$_ItemsCopyWith<$Res> {
+  __$$_ItemsCopyWithImpl(_$_Items _value, $Res Function(_$_Items) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? description = freezed,
+    Object? url = null,
+    Object? stargazers_count = null,
+  }) {
+    return _then(_$_Items(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      url: null == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
+      stargazers_count: null == stargazers_count
+          ? _value.stargazers_count
+          : stargazers_count // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_Items implements _Items {
+  const _$_Items(
+      {required this.name,
+      this.description,
+      required this.url,
+      required this.stargazers_count});
+
+  factory _$_Items.fromJson(Map<String, dynamic> json) =>
+      _$$_ItemsFromJson(json);
+
+  @override
+  final String name;
+  @override
+  final String? description;
+  @override
+  final String url;
+  @override
+  final int stargazers_count;
+
+  @override
+  String toString() {
+    return 'Items(name: $name, description: $description, url: $url, stargazers_count: $stargazers_count)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_Items &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.url, url) || other.url == url) &&
+            (identical(other.stargazers_count, stargazers_count) ||
+                other.stargazers_count == stargazers_count));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, name, description, url, stargazers_count);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_ItemsCopyWith<_$_Items> get copyWith =>
+      __$$_ItemsCopyWithImpl<_$_Items>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_ItemsToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Items implements Items {
+  const factory _Items(
+      {required final String name,
+      final String? description,
+      required final String url,
+      required final int stargazers_count}) = _$_Items;
+
+  factory _Items.fromJson(Map<String, dynamic> json) = _$_Items.fromJson;
+
+  @override
+  String get name;
+  @override
+  String? get description;
+  @override
+  String get url;
+  @override
+  int get stargazers_count;
+  @override
+  @JsonKey(ignore: true)
+  _$$_ItemsCopyWith<_$_Items> get copyWith =>
+      throw _privateConstructorUsedError;
+}

@@ -14,10 +14,21 @@ part "main.g.dart";
 class RepositoryProf with _$RepositoryProf {
   const factory RepositoryProf({
     required List items,
-
   }) = _RepositoryProf;
 
   factory RepositoryProf.fromJson(Map<String,Object?> json) => _$RepositoryProfFromJson(json);
+}
+
+@freezed
+class Items with _$Items{
+  const factory Items({
+    required String name,
+    String? description,
+    required String url,
+    required int stargazers_count,
+}) = _Items;
+  factory Items.fromJson(Map<String,Object?> json) => _$ItemsFromJson(json);
+
 }
 
 
@@ -88,11 +99,16 @@ class _HomeState extends State<Home> {
 
 
           for (Map item in repository.items) {
+
+            var data = Items.fromJson(item as Map<String, dynamic>);
+
+
             _repositrys.add(
                 ListTile(
-                  title: Text(item["name"] ?? ""),
-                  subtitle: Text(item["description"] ?? ""),
-                  trailing: Text(item["stargazers_count"].toString() ),
+                  title: Text(data.name),
+                  subtitle: Text(data.description ?? ""),
+                  trailing: Text(data.stargazers_count.toString() ),
+
                 ));
           }
 
