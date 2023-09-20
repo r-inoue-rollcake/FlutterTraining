@@ -59,7 +59,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   _HomeState({required this.title});
-  List<ListTile> _repositrys = [];
+  List<ListTile> _repositrys =[];
   String title = "Home";
   TextEditingController _textEditingController = TextEditingController();
 
@@ -71,6 +71,9 @@ class _HomeState extends State<Home> {
     super.initState();
     _textEditingController.text = "flutter";
     setState(() {
+      _repositrys = [];
+    });
+
       _repositrys.add(ListTile(
         title: TextField(controller: _textEditingController,),
         trailing: ElevatedButton(onPressed: () async {
@@ -82,6 +85,8 @@ class _HomeState extends State<Home> {
           print("complete");
           //print(repository.items[0]);
 
+
+
           for (Map item in repository.items) {
             _repositrys.add(
                 ListTile(
@@ -91,26 +96,15 @@ class _HomeState extends State<Home> {
                 ));
           }
 
-/*
-        for (int i = 0; i<100 || i < repository.items.length ; i++) {
-          Map item = repository.items[i];
-          _repositrys.add(
-              ListTile(
-                title: Text(item["name"]),
-                subtitle: Text(item["description"]),
-                trailing: Text(item["stargazers_count"].toString()),
-              ));
-        }
+          setState(() {
 
-
- */
+          });
 
         },
           child: Text("検索"),
         ),
       )
       );
-    });
 
   }
 
@@ -134,9 +128,11 @@ class _HomeState extends State<Home> {
       body:
 
 
-          ListView(
-            children: _repositrys,
-          ),
+          ListView.builder(
+              itemCount: _repositrys.length,
+              itemBuilder: (context,index){
+                return _repositrys[index];
+              })
     );
   }
 
