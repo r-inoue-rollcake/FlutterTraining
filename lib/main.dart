@@ -29,7 +29,7 @@ class Items with _$Items {
 }
 
 void main() {
-  runApp(ProviderScope(child: MyApp()));
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -43,24 +43,23 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Home(title: 'GitHub Repositrys'),
+      home: const Home(),
     );
   }
 }
 
 class Home extends StatefulWidget {
-  const Home({super.key, this.title = "Home"});
-  final String title;
+  const Home({super.key});
+
 
   @override
-  State<Home> createState() => _HomeState(title: title);
+  State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  _HomeState({required this.title});
-  List<ListTile> _repositrys = [];
-  String title = "Home";
-  TextEditingController _textEditingController = TextEditingController();
+  final List<ListTile> _repositrys = [];
+  final String title = "Search Github Repositorys";
+  final TextEditingController _textEditingController = TextEditingController();
 
   @override
   void initState() {
@@ -75,9 +74,9 @@ class _HomeState extends State<Home> {
         onPressed: () async {
           if (_textEditingController.text.trim().isEmpty == false) {
             _repositrys.removeRange(1, _repositrys.length);
-            final _response = await _getHttp(_textEditingController.text);
-            final _repository = RepositoryProf.fromJson(_response.data);
-            for (Map item in _repository.items) {
+            final response = await _getHttp(_textEditingController.text);
+            final repository = RepositoryProf.fromJson(response.data);
+            for (Map item in repository.items) {
               final data = Items.fromJson(item as Map<String, dynamic>);
 
               _repositrys.add(ListTile(
@@ -90,7 +89,7 @@ class _HomeState extends State<Home> {
           _textEditingController.text = "";
           setState(() {});
         },
-        child: Text("検索"),
+        child: const Text("検索"),
       ),
     ));
   }
@@ -103,9 +102,9 @@ class _HomeState extends State<Home> {
             title: Text(title),
             trailing: ElevatedButton(
               onPressed: () {
-                _goPage(RiverpodTest(), context);
+                _goPage(const RiverpodTest(), context);
               },
-              child: Text(""),
+              child: const Text(""),
             ),
           ),
         ),
@@ -118,12 +117,12 @@ class _HomeState extends State<Home> {
 }
 
 Future<Response<dynamic>> _getHttp(String text) async {
-  final _dio = Dio();
-  final _response =
-      await _dio.get("https://api.github.com/search/repositories?q=$text");
+  final dio = Dio();
+  final response =
+      await dio.get("https://api.github.com/search/repositories?q=$text");
 
   //print(response);
-  return _response;
+  return response;
 }
 
 _goPage(StatefulWidget stf, BuildContext context) {
