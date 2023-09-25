@@ -51,7 +51,6 @@ class MyApp extends StatelessWidget {
 class Home extends StatefulWidget {
   const Home({super.key});
 
-
   @override
   State<Home> createState() => _HomeState();
 }
@@ -113,6 +112,11 @@ class _HomeState extends State<Home> {
             itemBuilder: (context, index) {
               return _repositrys[index];
             }));
+  }
+  @override
+  void dispose(){
+    super.dispose();
+    _textEditingController.dispose();
   }
 }
 
