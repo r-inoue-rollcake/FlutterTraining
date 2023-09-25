@@ -16,32 +16,24 @@ class RepositoryProf with _$RepositoryProf {
     required List items,
   }) = _RepositoryProf;
 
-  factory RepositoryProf.fromJson(Map<String,Object?> json) => _$RepositoryProfFromJson(json);
+  factory RepositoryProf.fromJson(Map<String, Object?> json) =>
+      _$RepositoryProfFromJson(json);
 }
 
 @freezed
-class Items with _$Items{
+class Items with _$Items {
   const factory Items({
     required String name,
     String? description,
     required String url,
     required int stargazers_count,
-}) = _Items;
-  factory Items.fromJson(Map<String,Object?> json) => _$ItemsFromJson(json);
-
+  }) = _Items;
+  factory Items.fromJson(Map<String, Object?> json) => _$ItemsFromJson(json);
 }
-
 
 void main() {
-
-
-  runApp(
-      ProviderScope(
-          child: MyApp()
-      )
-  );
+  runApp(ProviderScope(child: MyApp()));
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -52,7 +44,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-
         primarySwatch: Colors.blue,
       ),
       home: const Home(title: 'GitHub Repositrys'),
@@ -70,12 +61,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   _HomeState({required this.title});
-  List<ListTile> _repositrys =[];
+  List<ListTile> _repositrys = [];
   String title = "Home";
   TextEditingController _textEditingController = TextEditingController();
-
-
-
 
   @override
   void initState() {
@@ -85,91 +73,70 @@ class _HomeState extends State<Home> {
       _repositrys = [];
     });
 
-      _repositrys.add(ListTile(
-        title: TextField(controller: _textEditingController,),
-        trailing: ElevatedButton(onPressed: () async {
+    _repositrys.add(ListTile(
+      title: TextField(
+        controller: _textEditingController,
+      ),
+      trailing: ElevatedButton(
+        onPressed: () async {
           _repositrys.removeRange(1, _repositrys.length);
-
 
           final response = await getHttp(_textEditingController.text);
           var repository = RepositoryProf.fromJson(response.data);
           print("complete");
           //print(repository.items[0]);
 
-
-
           for (Map item in repository.items) {
-
             var data = Items.fromJson(item as Map<String, dynamic>);
 
-
-            _repositrys.add(
-                ListTile(
-                  title: Text(data.name),
-                  subtitle: Text(data.description ?? ""),
-                  trailing: Text(data.stargazers_count.toString() ),
-
-                ));
+            _repositrys.add(ListTile(
+              title: Text(data.name),
+              subtitle: Text(data.description ?? ""),
+              trailing: Text(data.stargazers_count.toString()),
+            ));
           }
 
-          setState(() {
-
-          });
-
+          setState(() {});
         },
-          child: Text("検索"),
-        ),
-      )
-      );
-
+        child: Text("検索"),
+      ),
+    ));
   }
-
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: ListTile(
-          title: Text(title),
-          trailing: ElevatedButton(
-            onPressed: (){
-              goPage(RiverpodTest(), context);
-
-            },
-            child: Text(""),
+        appBar: AppBar(
+          title: ListTile(
+            title: Text(title),
+            trailing: ElevatedButton(
+              onPressed: () {
+                goPage(RiverpodTest(), context);
+              },
+              child: Text(""),
+            ),
           ),
         ),
-      ),
-      body:
-
-
-          ListView.builder(
-              itemCount: _repositrys.length,
-              itemBuilder: (context,index){
-                return _repositrys[index];
-              })
-    );
+        body: ListView.builder(
+            itemCount: _repositrys.length,
+            itemBuilder: (context, index) {
+              return _repositrys[index];
+            }));
   }
-
 }
 
 final dio = Dio();
 
-Future<Response<dynamic>> getHttp(String text)async{
-  final response = await dio.get("https://api.github.com/search/repositories?q=$text") ;
+Future<Response<dynamic>> getHttp(String text) async {
+  final response =
+      await dio.get("https://api.github.com/search/repositories?q=$text");
 
   //print(response);
   return response;
-
 }
 
-
-goPage(StatefulWidget stf,BuildContext context){
-  Navigator.push(context,
-      MaterialPageRoute(builder: (context){return stf;})
-  );
+goPage(StatefulWidget stf, BuildContext context) {
+  Navigator.push(context, MaterialPageRoute(builder: (context) {
+    return stf;
+  }));
 }
-
-
-
