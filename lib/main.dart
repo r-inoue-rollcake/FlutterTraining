@@ -1,11 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/RiverpodTest.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter/foundation.dart';
 
 part "main.freezed.dart";
 part "main.g.dart";
@@ -69,9 +66,6 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     _textEditingController.text = "flutter";
-    setState(() {
-      _repositrys = [];
-    });
 
     _repositrys.add(ListTile(
       title: TextField(
@@ -79,23 +73,21 @@ class _HomeState extends State<Home> {
       ),
       trailing: ElevatedButton(
         onPressed: () async {
-          _repositrys.removeRange(1, _repositrys.length);
+          if (_textEditingController.text.trim().isEmpty == false) {
+            _repositrys.removeRange(1, _repositrys.length);
+            final _response = await _getHttp(_textEditingController.text);
+            final _repository = RepositoryProf.fromJson(_response.data);
+            for (Map item in _repository.items) {
+              final data = Items.fromJson(item as Map<String, dynamic>);
 
-          final response = await getHttp(_textEditingController.text);
-          var repository = RepositoryProf.fromJson(response.data);
-          print("complete");
-          //print(repository.items[0]);
-
-          for (Map item in repository.items) {
-            var data = Items.fromJson(item as Map<String, dynamic>);
-
-            _repositrys.add(ListTile(
-              title: Text(data.name),
-              subtitle: Text(data.description ?? ""),
-              trailing: Text(data.stargazers_count.toString()),
-            ));
+              _repositrys.add(ListTile(
+                title: Text(data.name),
+                subtitle: Text(data.description ?? ""),
+                trailing: Text(data.stargazers_count.toString()),
+              ));
+            }
           }
-
+          _textEditingController.text = "";
           setState(() {});
         },
         child: Text("検索"),
@@ -111,7 +103,7 @@ class _HomeState extends State<Home> {
             title: Text(title),
             trailing: ElevatedButton(
               onPressed: () {
-                goPage(RiverpodTest(), context);
+                _goPage(RiverpodTest(), context);
               },
               child: Text(""),
             ),
@@ -125,17 +117,16 @@ class _HomeState extends State<Home> {
   }
 }
 
-final dio = Dio();
-
-Future<Response<dynamic>> getHttp(String text) async {
-  final response =
-      await dio.get("https://api.github.com/search/repositories?q=$text");
+Future<Response<dynamic>> _getHttp(String text) async {
+  final _dio = Dio();
+  final _response =
+      await _dio.get("https://api.github.com/search/repositories?q=$text");
 
   //print(response);
-  return response;
+  return _response;
 }
 
-goPage(StatefulWidget stf, BuildContext context) {
+_goPage(StatefulWidget stf, BuildContext context) {
   Navigator.push(context, MaterialPageRoute(builder: (context) {
     return stf;
   }));
