@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'main.dart';
+part of 'freezed_models.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -167,7 +167,8 @@ mixin _$Items {
   String get name => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   String get url => throw _privateConstructorUsedError;
-  int get stargazers_count => throw _privateConstructorUsedError;
+  @JsonKey(name: "stargazers_count")
+  int get stargazersCount => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -180,7 +181,10 @@ abstract class $ItemsCopyWith<$Res> {
       _$ItemsCopyWithImpl<$Res, Items>;
   @useResult
   $Res call(
-      {String name, String? description, String url, int stargazers_count});
+      {String name,
+      String? description,
+      String url,
+      @JsonKey(name: "stargazers_count") int stargazersCount});
 }
 
 /// @nodoc
@@ -199,7 +203,7 @@ class _$ItemsCopyWithImpl<$Res, $Val extends Items>
     Object? name = null,
     Object? description = freezed,
     Object? url = null,
-    Object? stargazers_count = null,
+    Object? stargazersCount = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -214,9 +218,9 @@ class _$ItemsCopyWithImpl<$Res, $Val extends Items>
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String,
-      stargazers_count: null == stargazers_count
-          ? _value.stargazers_count
-          : stargazers_count // ignore: cast_nullable_to_non_nullable
+      stargazersCount: null == stargazersCount
+          ? _value.stargazersCount
+          : stargazersCount // ignore: cast_nullable_to_non_nullable
               as int,
     ) as $Val);
   }
@@ -229,7 +233,10 @@ abstract class _$$_ItemsCopyWith<$Res> implements $ItemsCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String name, String? description, String url, int stargazers_count});
+      {String name,
+      String? description,
+      String url,
+      @JsonKey(name: "stargazers_count") int stargazersCount});
 }
 
 /// @nodoc
@@ -244,7 +251,7 @@ class __$$_ItemsCopyWithImpl<$Res> extends _$ItemsCopyWithImpl<$Res, _$_Items>
     Object? name = null,
     Object? description = freezed,
     Object? url = null,
-    Object? stargazers_count = null,
+    Object? stargazersCount = null,
   }) {
     return _then(_$_Items(
       name: null == name
@@ -259,9 +266,9 @@ class __$$_ItemsCopyWithImpl<$Res> extends _$ItemsCopyWithImpl<$Res, _$_Items>
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String,
-      stargazers_count: null == stargazers_count
-          ? _value.stargazers_count
-          : stargazers_count // ignore: cast_nullable_to_non_nullable
+      stargazersCount: null == stargazersCount
+          ? _value.stargazersCount
+          : stargazersCount // ignore: cast_nullable_to_non_nullable
               as int,
     ));
   }
@@ -274,7 +281,7 @@ class _$_Items implements _Items {
       {required this.name,
       this.description,
       required this.url,
-      required this.stargazers_count});
+      @JsonKey(name: "stargazers_count") required this.stargazersCount});
 
   factory _$_Items.fromJson(Map<String, dynamic> json) =>
       _$$_ItemsFromJson(json);
@@ -286,11 +293,12 @@ class _$_Items implements _Items {
   @override
   final String url;
   @override
-  final int stargazers_count;
+  @JsonKey(name: "stargazers_count")
+  final int stargazersCount;
 
   @override
   String toString() {
-    return 'Items(name: $name, description: $description, url: $url, stargazers_count: $stargazers_count)';
+    return 'Items(name: $name, description: $description, url: $url, stargazersCount: $stargazersCount)';
   }
 
   @override
@@ -302,14 +310,14 @@ class _$_Items implements _Items {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.url, url) || other.url == url) &&
-            (identical(other.stargazers_count, stargazers_count) ||
-                other.stargazers_count == stargazers_count));
+            (identical(other.stargazersCount, stargazersCount) ||
+                other.stargazersCount == stargazersCount));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, name, description, url, stargazers_count);
+      Object.hash(runtimeType, name, description, url, stargazersCount);
 
   @JsonKey(ignore: true)
   @override
@@ -330,7 +338,8 @@ abstract class _Items implements Items {
       {required final String name,
       final String? description,
       required final String url,
-      required final int stargazers_count}) = _$_Items;
+      @JsonKey(name: "stargazers_count")
+      required final int stargazersCount}) = _$_Items;
 
   factory _Items.fromJson(Map<String, dynamic> json) = _$_Items.fromJson;
 
@@ -341,7 +350,8 @@ abstract class _Items implements Items {
   @override
   String get url;
   @override
-  int get stargazers_count;
+  @JsonKey(name: "stargazers_count")
+  int get stargazersCount;
   @override
   @JsonKey(ignore: true)
   _$$_ItemsCopyWith<_$_Items> get copyWith =>
