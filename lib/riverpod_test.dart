@@ -10,7 +10,11 @@ class RiverpodTest extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<ListTile> listTileList = ref.watch(listTileListProvider);
+    final listTileList = ref.watch(listTileListProvider);
+    final listTileListNotifier = ref.read(listTileListProvider.notifier);
+    final buttonTextNotifier = ref.read(buttonTextStateProvider.notifier);
+    final textEditingControllerNotifier =
+        ref.read(textEditingControllerProvider.notifier);
 
     return MaterialApp(
       home: Scaffold(
@@ -27,32 +31,35 @@ class RiverpodTest extends ConsumerWidget {
                   onPressed: () async {
                     if (ref.read(textEditingControllerProvider).text.trim() !=
                         "") {
-                      ref.read(myProvider.notifier).state = "loading";
-                      listTileList.clear();
-                      Response<dynamic> response = await getJsonFromHttp(
-                          ref.read(textEditingControllerProvider).text);
-                      for (final item
-                          in RepositoryProf.fromJson(response.data).items) {
-                        final data = Items.fromJson(item);
+                      buttonTextNotifier.state = "loading";
+                      listTileListNotifier.removeAll();
 
-                        ref
-                            .read(listTileListProvider.notifier)
-                            .state
-                            .add(ListTile(
-                              title: Text(data.name),
-                              subtitle: Text(data.description ?? ""),
-                              trailing: Text(data.stargazersCount.toString()),
-                            ));
+                      Response<dynamic>? response = await getJsonFromHttp(
+                          ref.read(textEditingControllerProvider).text);
+
+                      if (response != null) {
+                        for (final item
+                        in RepositoryProf
+                            .fromJson(response.data)
+                            .items) {
+                          final data = Items.fromJson(item);
+
+                          listTileListNotifier.addItem(data);
+                        }
+                      }else{
+                        listTileListNotifier.addItem(const Items(
+                            name: "データ取得に失敗しました。",
+                            description: "error",
+                            stargazersCount: 0,
+                            url: ''
+                        ));
                       }
 
-                      ref
-                          .read(textEditingControllerProvider.notifier)
-                          .state
-                          .text = "";
-                      ref.read(myProvider.notifier).state = "検索";
+                      textEditingControllerNotifier.state.text = "";
+                      buttonTextNotifier.state = "検索";
                     }
                   },
-                  child: Text(ref.watch(myProvider).toString()),
+                  child: Text(ref.watch(buttonTextStateProvider).toString()),
                 ),
               ),
               Flexible(
