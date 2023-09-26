@@ -20,6 +20,8 @@ class RiverpodTest extends ConsumerWidget {
               ListTile(
                 title: TextField(
                   controller: ref.watch(textEditingControllerProvider),
+                  decoration: const InputDecoration(
+                      hintText: "Search Github Repositories"),
                 ),
                 trailing: ElevatedButton(
                   onPressed: () async {
@@ -43,6 +45,10 @@ class RiverpodTest extends ConsumerWidget {
                             ));
                       }
 
+                      ref
+                          .read(textEditingControllerProvider.notifier)
+                          .state
+                          .text = "";
                       ref.read(myProvider.notifier).state = "検索";
                     }
                   },
