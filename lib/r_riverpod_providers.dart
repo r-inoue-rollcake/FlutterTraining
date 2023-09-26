@@ -5,7 +5,7 @@ StateProvider<TextEditingController> textEditingControllerProvider =
     StateProvider<TextEditingController>((ref) => TextEditingController());
 StateProvider<List<ListTile>> listTileListProvider =
     StateProvider<List<ListTile>>((ref) => [
-          ListTile(
+          const ListTile(
             title: Text("サンプル"),
           )
         ]);
