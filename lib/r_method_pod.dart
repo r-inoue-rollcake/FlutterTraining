@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
-Future<Response<dynamic>> getHttp(String text) async {
+Future<Response<dynamic>> getJsonFromHttp(String text) async {
   final dio = Dio();
   final response =
       await dio.get("https://api.github.com/search/repositories?q=$text");

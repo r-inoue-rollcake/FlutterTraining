@@ -66,7 +66,8 @@ class _HomeState extends State<Home> {
                 onPressed: () async {
                   if (_textEditingController.text.trim().isEmpty == false) {
                     _repositrys.clear();
-                    final response = await getHttp(_textEditingController.text);
+                    final response =
+                        await getJsonFromHttp(_textEditingController.text);
                     final repository = RepositoryProf.fromJson(response.data);
                     for (Map item in repository.items) {
                       final data = Items.fromJson(item as Map<String, dynamic>);
