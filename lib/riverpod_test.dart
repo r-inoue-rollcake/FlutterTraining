@@ -10,11 +10,11 @@ class RiverpodTest extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final listTileList = ref.watch(listTileListProvider);
-    final listTileListNotifier = ref.read(listTileListProvider.notifier);
     final buttonTextNotifier = ref.read(buttonTextStateProvider.notifier);
     final textEditingControllerNotifier =
         ref.read(textEditingControllerProvider.notifier);
+    final itemList = ref.read(itemListProvider);
+    final itemListNotifier = ref.read(itemListProvider.notifier);
 
     return MaterialApp(
       home: Scaffold(
@@ -32,7 +32,7 @@ class RiverpodTest extends ConsumerWidget {
                     if (ref.read(textEditingControllerProvider).text.trim() !=
                         "") {
                       buttonTextNotifier.state = "loading";
-                      listTileListNotifier.removeAll();
+                      itemListNotifier.removeAll();
 
                       Response<dynamic>? response = await getJsonFromHttp(
                           ref.read(textEditingControllerProvider).text);
@@ -42,14 +42,11 @@ class RiverpodTest extends ConsumerWidget {
                             in RepositoryProf.fromJson(response.data).items) {
                           final data = Items.fromJson(item);
 
-                          listTileListNotifier.addItem(data);
+                          ref.read(itemListProvider.notifier).addItem(data);
                         }
                       } else {
-                        listTileListNotifier.addItem(const Items(
-                            name: "データ取得に失敗しました。",
-                            description: "error",
-                            stargazersCount: 0,
-                            url: ''));
+                        itemListNotifier.addItem(const Items(
+                            name: "読み込み失敗", url: "", stargazersCount: 0));
                       }
 
                       textEditingControllerNotifier.state.text = "";
@@ -60,12 +57,17 @@ class RiverpodTest extends ConsumerWidget {
                 ),
               ),
               Flexible(
-                  child: ListView.builder(
-                itemCount: listTileList.length,
-                itemBuilder: (context, index) {
-                  return listTileList[index];
-                },
-              )),
+                child: ListView.builder(
+                    itemCount: ref.watch(itemListProvider).length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(itemList[index].name),
+                        subtitle: Text(itemList[index].description ?? ""),
+                        trailing:
+                            Text(itemList[index].stargazersCount.toString()),
+                      );
+                    }),
+              ),
             ],
           )),
     );
