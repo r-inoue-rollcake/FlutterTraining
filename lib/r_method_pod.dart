@@ -5,10 +5,10 @@ Future<Response<dynamic>?> getJsonFromHttp(String text) async {
   final dio = Dio();
   try {
     final response =
-    await dio.get("https://api.github.com/search/repositories?q=$text");
+        await dio.get("https://api.github.com/search/repositories?q=$text");
 
     return response;
-  }catch(e){
+  } catch (e) {
     return null;
   }
 }

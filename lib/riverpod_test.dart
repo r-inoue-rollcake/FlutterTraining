@@ -39,20 +39,17 @@ class RiverpodTest extends ConsumerWidget {
 
                       if (response != null) {
                         for (final item
-                        in RepositoryProf
-                            .fromJson(response.data)
-                            .items) {
+                            in RepositoryProf.fromJson(response.data).items) {
                           final data = Items.fromJson(item);
 
                           listTileListNotifier.addItem(data);
                         }
-                      }else{
+                      } else {
                         listTileListNotifier.addItem(const Items(
                             name: "データ取得に失敗しました。",
                             description: "error",
                             stargazersCount: 0,
-                            url: ''
-                        ));
+                            url: ''));
                       }
 
                       textEditingControllerNotifier.state.text = "";

@@ -67,12 +67,12 @@ class _HomeState extends State<Home> {
                   if (_textEditingController.text.trim().isEmpty == false) {
                     _repositrys.clear();
                     final response =
-                    await getJsonFromHttp(_textEditingController.text);
+                        await getJsonFromHttp(_textEditingController.text);
                     if (response != null) {
                       final repository = RepositoryProf.fromJson(response.data);
                       for (Map item in repository.items) {
-                        final data = Items.fromJson(
-                            item as Map<String, dynamic>);
+                        final data =
+                            Items.fromJson(item as Map<String, dynamic>);
 
                         _repositrys.add(ListTile(
                           title: Text(data.name),
