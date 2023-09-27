@@ -12,7 +12,7 @@ class RiverpodTest extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final buttonTextNotifier = ref.read(buttonTextStateProvider.notifier);
     final textEditingControllerNotifier =
-        ref.read(textEditingControllerProvider.notifier);
+        ref.read(textEditingControllerProvider);
     final itemList = ref.read(itemListProvider);
     final itemListNotifier = ref.read(itemListProvider.notifier);
 
@@ -49,7 +49,7 @@ class RiverpodTest extends ConsumerWidget {
                             name: "読み込み失敗", url: "", stargazersCount: 0));
                       }
 
-                      textEditingControllerNotifier.state.text = "";
+                      textEditingControllerNotifier.text = "";
                       buttonTextNotifier.state = "検索";
                     }
                   },

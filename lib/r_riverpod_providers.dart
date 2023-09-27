@@ -2,8 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_training/freezed_models.dart';
 
-final textEditingControllerProvider =
-    StateProvider<TextEditingController>((ref) {
+final textEditingControllerProvider = Provider<TextEditingController>((ref) {
   return TextEditingController();
 });
 
